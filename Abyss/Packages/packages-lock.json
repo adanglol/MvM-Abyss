@@ -1,5 +1,15 @@
 {
   "dependencies": {
+    "com.seanba.super-tiled2unity": {
+      "version": "file:D:/Unity_Projects/paks",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.unity.modules.animation": "1.0.0",
+        "com.unity.modules.physics2d": "1.0.0",
+        "com.unity.modules.tilemap": "1.0.0"
+      }
+    },
     "com.unity.cinemachine": {
       "version": "2.9.7",
       "depth": 0,
