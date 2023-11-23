@@ -47,3 +47,6 @@ TagManager:
   - name: Tilemap
     uniqueID: 4113084005
     locked: 0
+  - name: Character
+    uniqueID: 2573060281
+    locked: 0
