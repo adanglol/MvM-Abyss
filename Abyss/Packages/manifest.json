@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.seanba.super-tiled2unity": "file:D:/Unity_Projects/paks",
     "com.unity.cinemachine": "2.9.7",
     "com.unity.toolchain.win-x86_64-linux-x86_64": "2.0.6",
     "com.unity.modules.ai": "1.0.0",

@@ -1,9 +1,9 @@
 {
   "dependencies": {
     "com.seanba.super-tiled2unity": {
-      "version": "file:D:/Unity_Projects/paks",
+      "version": "file:tiled2unity",
       "depth": 0,
-      "source": "local",
+      "source": "embedded",
       "dependencies": {
         "com.unity.modules.animation": "1.0.0",
         "com.unity.modules.physics2d": "1.0.0",
