@@ -6,18 +6,20 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 15f;  // Adjust this to set the player's movement speed
     public float jumpForce = 20f; // Adjust this to set the player's jump force
-    public float jumpHoldDuration = 0.5f; //how long the player is holding the jump button
     public float dashSpeed = 30f; // Adjust this to set the dash speed
     public float dashDuration = 1f; // Adjust this to set the dash duration
     public float dashCooldown = 0.5f; // Adjust this to set the dash cooldown
     public float wallSlidingSpeed = 2f; //speed at which player slides down walls
 
+    [SerializeField] private float acceleration = 1f;
+    [SerializeField] private float deceleration = 1f;
+
     private bool isWallJumping;
     private float wallJumpingDirection;
     private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
-    private float wallJumpingDuration = 0.4f;
-    private Vector2 wallJumpingPower = new Vector2(30f, 40f);
+    [SerializeField] private float wallJumpingDuration = 0.4f;
+    private Vector2 wallJumpingPower = new Vector2(25f, 25f);
 
     private Rigidbody2D rb;
 
@@ -55,6 +57,9 @@ public class PlayerMovement : MonoBehaviour
         // Check if the player is grounded
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
+        // Player input for movement
+        moveInput = Input.GetAxis("Horizontal");
+
         // Apply dash if not currently dashing
         if (canDash && Input.GetButtonDown("Fire1"))
         {
@@ -65,8 +70,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Player input for jumping
 
-        if (Input.GetButton("Jump") && Time.time < lastGrounded + jumpHoldDuration && !isWallJumping && !isWallSliding) {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        if (Input.GetButtonDown("Jump") && isGrounded && !isWallSliding && !isWallJumping) {
+            Vector2 jumpVector = new Vector2(rb.velocity.x, jumpForce);
+            rb.AddForce(jumpVector, ForceMode2D.Impulse);
         }
 
         WallSlide();
@@ -79,22 +85,25 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        // Player input for movement
-        moveInput = Input.GetAxis("Horizontal");
+
+        float targetSpeed = moveInput * moveSpeed;
+        float speedDif = targetSpeed - rb.velocity.x;
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
+        float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, 2) * Mathf.Sign(speedDif);
+        
         if (!isWallJumping) {
-            rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-            //move = new Vector2(moveInput, 0f);
+            rb.AddForce(movement * Vector2.right);
         }
 
         // If dashing, move with dash speed
         if (isDashing) {
             rb.gravityScale = 0;
-            rb.velocity = new Vector2(moveInput * dashSpeed, rb.velocity.y);
+            Vector2 dashVector = new Vector2(moveInput * dashSpeed, rb.velocity.y);
+            rb.AddForce(dashVector, ForceMode2D.Force);
         }
         else {
             // Otherwise, move with regular speed
             rb.gravityScale = 4;
-            rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         }
     }
 
@@ -117,20 +126,20 @@ public class PlayerMovement : MonoBehaviour
             isWallJumping = false;
             wallJumpingDirection = -transform.localScale.x;
             wallJumpingCounter = wallJumpingTime;
-            Debug.Log(wallJumpingDirection);
-
 
             CancelInvoke(nameof(StopWallJumping));
+
         } else {
             wallJumpingCounter -= Time.deltaTime;
         }
 
-        if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f) {
+        if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f && !isGrounded) {
             isWallJumping = true;
-            rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+            Vector2 wallJumpVect = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+            rb.AddForce(wallJumpVect, ForceMode2D.Impulse);
             wallJumpingCounter = 0f;
 
-            /*if (transform.localScale.x != wallJumpingDirection) {
+            if (transform.localScale.x != wallJumpingDirection) {
                 isFacingRight = !isFacingRight;
                 Vector3 localScale = transform.localScale;
                 if (isFacingRight) {
@@ -141,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 transform.localScale = localScale;
-            }*/
+            }
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
         }

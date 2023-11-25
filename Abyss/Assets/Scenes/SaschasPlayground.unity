@@ -551,7 +551,7 @@ Transform:
   m_GameObject: {fileID: 1374138312}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.62, y: 0, z: 0}
+  m_LocalPosition: {x: 0.553, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -965,25 +965,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2916903230758283841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6959046303361711129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f8cd170e550e5e47846198861221b1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 15
-  jumpForce: 30
-  jumpHoldDuration: 0.2
-  dashSpeed: 70
-  dashDuration: 0.2
-  dashCooldown: 0.5
-  wallSlidingSpeed: 2
 --- !u!50 &3544805699593557154
 Rigidbody2D:
   serializedVersion: 4
@@ -1007,7 +988,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -1090,7 +1071,7 @@ GameObject:
   - component: {fileID: 5914447158729732528}
   - component: {fileID: 7300462520621978576}
   - component: {fileID: 3544805699593557154}
-  - component: {fileID: 2916903230758283841}
+  - component: {fileID: 8188762140075616124}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1167,6 +1148,27 @@ Transform:
   - {fileID: 1544550142}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8188762140075616124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6959046303361711129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db433c2ea6cfa8746952570c601596dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 15
+  jumpForce: 40
+  dashSpeed: 50
+  dashDuration: 0.15
+  dashCooldown: 0.3
+  wallSlidingSpeed: 2
+  acceleration: 1
+  deceleration: 1.5
+  wallJumpingDuration: 0.3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
