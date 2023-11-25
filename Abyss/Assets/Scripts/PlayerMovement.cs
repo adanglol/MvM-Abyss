@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
     private float wallJumpingDuration = 0.4f;
-    private Vector2 wallJumpingPower = new Vector2(100f, 30f);
+    private Vector2 wallJumpingPower = new Vector2(10f, 30f);
 
     private Rigidbody2D rb;
 
@@ -55,11 +55,18 @@ public class PlayerMovement : MonoBehaviour
         // Check if the player is grounded
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
-
         // Apply dash if not currently dashing
         if (canDash && Input.GetButtonDown("Fire1"))
         {
             StartCoroutine(Dash());
+        }
+
+        if (isGrounded) lastGrounded = Time.time;
+
+        // Player input for jumping
+
+        if (Input.GetButton("Jump") && Time.time < lastGrounded + jumpHoldDuration && !isWallJumping && !isWallSliding) {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
         WallSlide();
@@ -89,15 +96,6 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = 4;
             rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         }
-
-
-        if (isGrounded) lastGrounded = Time.time;
-
-        // Player input for jumping
-
-        if (Input.GetButton("Jump") && Time.time < lastGrounded + jumpHoldDuration) {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        }
     }
 
     private bool IsWalled() {
@@ -119,6 +117,8 @@ public class PlayerMovement : MonoBehaviour
             isWallJumping = false;
             wallJumpingDirection = -transform.localScale.x;
             wallJumpingCounter = wallJumpingTime;
+            Debug.Log(wallJumpingDirection);
+
 
             CancelInvoke(nameof(StopWallJumping));
         } else {
@@ -130,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
 
-            if (transform.localScale.x != wallJumpingDirection) {
+            /*if (transform.localScale.x != wallJumpingDirection) {
                 isFacingRight = !isFacingRight;
                 Vector3 localScale = transform.localScale;
                 if (isFacingRight) {
@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 transform.localScale = localScale;
-            }
+            }*/
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
         }
