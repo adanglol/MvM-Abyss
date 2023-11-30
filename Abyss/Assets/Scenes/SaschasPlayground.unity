@@ -1072,6 +1072,7 @@ GameObject:
   - component: {fileID: 7300462520621978576}
   - component: {fileID: 3544805699593557154}
   - component: {fileID: 8188762140075616124}
+  - component: {fileID: 8188762140075616125}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1166,9 +1167,22 @@ MonoBehaviour:
   dashDuration: 0.15
   dashCooldown: 0.3
   wallSlidingSpeed: 2
+  coyoteTime: 0.2
   acceleration: 1
   deceleration: 1.5
   wallJumpingDuration: 0.3
+--- !u!114 &8188762140075616125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6959046303361711129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54db55069cbd984a9007200316e51be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

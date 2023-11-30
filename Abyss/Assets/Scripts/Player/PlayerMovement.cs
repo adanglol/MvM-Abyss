@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
-{
+public class PlayerMovement : MonoBehaviour {
     public float moveSpeed = 15f;  // Adjust this to set the player's movement speed
     public float jumpForce = 20f; // Adjust this to set the player's jump force
     public float dashSpeed = 30f; // Adjust this to set the dash speed
     public float dashDuration = 1f; // Adjust this to set the dash duration
     public float dashCooldown = 0.5f; // Adjust this to set the dash cooldown
     public float wallSlidingSpeed = 2f; //speed at which player slides down walls
+    public float coyoteTime = 0.1f; //time player can jump after leaving a platform
 
     [SerializeField] private float acceleration = 1f;
     [SerializeField] private float deceleration = 1f;
@@ -42,8 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 move;
 
-    private void Start()
-    {
+    private void Start() {
         rb = GetComponent<Rigidbody2D>();
         groundCheck = transform.Find("GroundCheck"); // Create an empty GameObject called "GroundCheck" slightly below the player
         groundLayer = LayerMask.GetMask("Ground"); // Make sure your ground objects are on the "Ground" layer
@@ -52,8 +51,7 @@ public class PlayerMovement : MonoBehaviour
         originalMoveSpeed = moveSpeed;
     }
 
-    private void Update()
-    {
+    private void Update() {
         // Check if the player is grounded
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
@@ -61,8 +59,7 @@ public class PlayerMovement : MonoBehaviour
         moveInput = Input.GetAxis("Horizontal");
 
         // Apply dash if not currently dashing
-        if (canDash && Input.GetButtonDown("Fire1"))
-        {
+        if (canDash && Input.GetButtonDown("Fire1")) {
             StartCoroutine(Dash());
         }
 
@@ -70,9 +67,11 @@ public class PlayerMovement : MonoBehaviour
 
         // Player input for jumping
 
-        if (Input.GetButtonDown("Jump") && isGrounded && !isWallSliding && !isWallJumping) {
-            Vector2 jumpVector = new Vector2(rb.velocity.x, jumpForce);
-            rb.AddForce(jumpVector, ForceMode2D.Impulse);
+        if (isGrounded || Time.time - lastGrounded < coyoteTime) {
+            if (Input.GetButtonDown("Jump") && !isWallSliding && !isWallJumping) {
+                Vector2 jumpVector = new Vector2(rb.velocity.x, jumpForce);
+                rb.AddForce(jumpVector, ForceMode2D.Impulse);
+            }
         }
 
         WallSlide();
@@ -90,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         float speedDif = targetSpeed - rb.velocity.x;
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
         float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, 2) * Mathf.Sign(speedDif);
-        
+
         if (!isWallJumping) {
             rb.AddForce(movement * Vector2.right);
         }
@@ -116,7 +115,8 @@ public class PlayerMovement : MonoBehaviour
         if (IsWalled() && !isGrounded && moveInput != 0f) {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
-        } else {
+        }
+        else {
             isWallSliding = false;
         }
     }
@@ -129,7 +129,8 @@ public class PlayerMovement : MonoBehaviour
 
             CancelInvoke(nameof(StopWallJumping));
 
-        } else {
+        }
+        else {
             wallJumpingCounter -= Time.deltaTime;
         }
 
@@ -166,16 +167,16 @@ public class PlayerMovement : MonoBehaviour
             Vector3 localScale = transform.localScale;
             if (isFacingRight) {
                 localScale.x = 0.7f;
-            } else {
+            }
+            else {
                 localScale.x = -0.7f;
             }
-            
+
             transform.localScale = localScale;
         }
     }
 
-    private System.Collections.IEnumerator Dash()
-    {
+    private System.Collections.IEnumerator Dash() {
         isDashing = true;
         canDash = false;
         moveSpeed = dashSpeed;
@@ -191,5 +192,12 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
 
         canDash = true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        // Update last time grounded on collision with the ground
+        if (collision.gameObject.layer == groundLayer) {
+            lastGrounded = Time.time;
+        }
     }
 }
