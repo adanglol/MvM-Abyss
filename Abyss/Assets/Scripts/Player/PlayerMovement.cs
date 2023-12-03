@@ -28,6 +28,8 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float enemyKnockbackDuration = 0.5f;
     private bool isEnemyKnockback = false;
 
+    private bool canDoubleJump;
+
     private Rigidbody2D rb;
 
     private bool isGrounded;
@@ -78,8 +80,12 @@ public class PlayerMovement : MonoBehaviour {
 
         // Player input for jumping
 
-        if (isGrounded || Time.time - lastGrounded < coyoteTime) {
+        if (isGrounded || Time.time - lastGrounded < coyoteTime || canDoubleJump) {
+            canDoubleJump = true;
             if (Input.GetButtonDown("Jump") && !isWallSliding && !isWallJumping && !isEnemyKnockback) {
+                if (!isGrounded) {
+                    canDoubleJump = false;
+                }
                 Vector2 jumpVector = new Vector2(rb.velocity.x, jumpForce);
                 rb.AddForce(jumpVector, ForceMode2D.Impulse);
             }
