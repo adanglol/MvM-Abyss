@@ -19,7 +19,16 @@ public class PlayerMovement : MonoBehaviour {
     private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
     [SerializeField] private float wallJumpingDuration = 0.4f;
-    private Vector2 wallJumpingPower = new Vector2(25f, 25f);
+    private Vector2 wallJumpingPower = new Vector2(3f, 40f);
+
+    public float health = 50f;
+
+    private Vector2 enemyKnockback = new Vector2(3f, 30f);
+    private float enemyKnockbackDirection;
+    [SerializeField] private float enemyKnockbackDuration = 0.5f;
+    private bool isEnemyKnockback = false;
+
+    private bool canDoubleJump;
 
     private Rigidbody2D rb;
 
@@ -52,6 +61,10 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void Update() {
+        if (health <= 0) {
+            Destroy(gameObject);
+        }
+
         // Check if the player is grounded
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
@@ -59,7 +72,7 @@ public class PlayerMovement : MonoBehaviour {
         moveInput = Input.GetAxis("Horizontal");
 
         // Apply dash if not currently dashing
-        if (canDash && Input.GetButtonDown("Fire1")) {
+        if (canDash && Input.GetButtonDown("Fire2")) {
             StartCoroutine(Dash());
         }
 
@@ -67,8 +80,12 @@ public class PlayerMovement : MonoBehaviour {
 
         // Player input for jumping
 
-        if (isGrounded || Time.time - lastGrounded < coyoteTime) {
-            if (Input.GetButtonDown("Jump") && !isWallSliding && !isWallJumping) {
+        if (isGrounded || Time.time - lastGrounded < coyoteTime || canDoubleJump) {
+            canDoubleJump = true;
+            if (Input.GetButtonDown("Jump") && !isWallSliding && !isWallJumping && !isEnemyKnockback) {
+                if (!isGrounded) {
+                    canDoubleJump = false;
+                }
                 Vector2 jumpVector = new Vector2(rb.velocity.x, jumpForce);
                 rb.AddForce(jumpVector, ForceMode2D.Impulse);
             }
@@ -90,7 +107,7 @@ public class PlayerMovement : MonoBehaviour {
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
         float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, 2) * Mathf.Sign(speedDif);
 
-        if (!isWallJumping) {
+        if (!isWallJumping && !isEnemyKnockback) {
             rb.AddForce(movement * Vector2.right);
         }
 
@@ -144,10 +161,10 @@ public class PlayerMovement : MonoBehaviour {
                 isFacingRight = !isFacingRight;
                 Vector3 localScale = transform.localScale;
                 if (isFacingRight) {
-                    localScale.x = 0.7f;
+                    localScale.x = 4.9f;
                 }
                 else {
-                    localScale.x = -0.7f;
+                    localScale.x = -4.9f;
                 }
 
                 transform.localScale = localScale;
@@ -166,10 +183,10 @@ public class PlayerMovement : MonoBehaviour {
             isFacingRight = !isFacingRight;
             Vector3 localScale = transform.localScale;
             if (isFacingRight) {
-                localScale.x = 0.7f;
+                localScale.x = 4.9f;
             }
             else {
-                localScale.x = -0.7f;
+                localScale.x = -4.9f;
             }
 
             transform.localScale = localScale;
@@ -199,5 +216,19 @@ public class PlayerMovement : MonoBehaviour {
         if (collision.gameObject.layer == groundLayer) {
             lastGrounded = Time.time;
         }
+
+        if (collision.transform.tag == "Enemy") {
+            isEnemyKnockback = true;
+            health -= collision.gameObject.GetComponent<EnemyController>().damage;
+            enemyKnockbackDirection = -transform.localScale.x;
+            Vector2 enemyKnockbackVect = new Vector2(enemyKnockbackDirection * enemyKnockback.x, enemyKnockback.y);
+            rb.AddForce(enemyKnockbackVect, ForceMode2D.Impulse);
+
+            Invoke(nameof(StopEnemyKnockback), enemyKnockbackDuration);
+        }
+    }
+
+    private void StopEnemyKnockback() {
+        isEnemyKnockback = false;
     }
 }
