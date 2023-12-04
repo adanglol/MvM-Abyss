@@ -238,6 +238,7 @@ GameObject:
   - component: {fileID: 3843019514685794562}
   - component: {fileID: 8713354606832445263}
   - component: {fileID: 7071970114384555942}
+  - component: {fileID: 2764494076388589740}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -417,3 +418,15 @@ MonoBehaviour:
   attackCooldown: 0.5
   damage: 10
   meleeAttack: {fileID: 7358238837010777009}
+--- !u!114 &2764494076388589740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7689358323043958372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e825a181e63a04b999f797fe536b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -62,12 +62,18 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAttacks.cs" />
+    <Compile Include="Assets\Scripts\DontDestroyObject.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\LevelLoader.cs" />
     <Compile Include="Assets\Scripts\Environment\Parallax2.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\TiledLevels\PrototypeLevel\rules.txt" />
+    <None Include="Assets\TiledLevels\Levels\01_Blue\rules.txt" />
+    <None Include="Assets\TiledLevels\Levels\03_Yellow\rules.txt" />
+    <None Include="Assets\TiledLevels\Levels\02_Green\rules.txt" />
+    <None Include="Assets\TiledLevels\Levels\rules.txt" />
+    <None Include="Assets\TiledLevels\Levels\04_Red\rules.txt" />
+    <None Include="Assets\TiledLevels\Levels\05_SpecialRooms\rules.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
