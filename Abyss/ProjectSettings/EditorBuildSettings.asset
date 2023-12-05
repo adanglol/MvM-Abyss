@@ -5,10 +5,61 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/99_Other/SaschasPlayground.unity
     guid: 6d4da626102b24b4899545b3eba1e798
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/99_Other/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/00_Blue.unity
+    guid: c8aee31c6bab20345b90f847ab12a974
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/01_Blue.unity
+    guid: af4445a78d0b9cd42b8e3127a265b4a1
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/02_Blue.unity
+    guid: 75c9d2d2156abd84187f30ae5bb77e66
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/03_Blue.unity
+    guid: 084a9c13c2ce46147868dd54642944c7
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/00_Green.unity
+    guid: 8d748ae65fb3d8a4295d9099143a9b0d
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/01_Green.unity
+    guid: 3ced5950e021ada44b1b632b070eab25
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/02_Green.unity
+    guid: deaae46c14f975e43975d90e3ff5c94e
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/03_Green.unity
+    guid: e5952d08e139d59479a267173b4d74e7
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/04_Green.unity
+    guid: 95ee08d2bedd18f488220569ad462c93
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/05_Green.unity
+    guid: dea8c8c189ed50241a70cff4cefcbd0e
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/06_Green.unity
+    guid: b17ce130ab7dd154d8c47fe5fa48c1c6
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/07_Green.unity
+    guid: e5660d551a59c76478eb9196017924f6
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/08_Green.unity
+    guid: 41547845716f0324594ccbc26e8417f4
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/00_Yellow.unity
+    guid: ba271f48c0dc74549b45a9f93852c472
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/01_Yellow.unity
+    guid: ffad628168987814f850c4bc0d9008d9
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/02_Yellow.unity
+    guid: d10fb6fdb44b16c43b76525b904a8d7d
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/03_Yellow.unity
+    guid: d352dbe3c558f6647bc2a26864d43817
   m_configObjects: {}
