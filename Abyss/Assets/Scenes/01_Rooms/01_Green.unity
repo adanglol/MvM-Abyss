@@ -205,7 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 195552995}
   m_Layer: 0
-  m_Name: GameObject (2)
+  m_Name: FromGreenElevator01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -827,9 +827,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2194390925319946733, guid: 2d1f1700b06a26e45984e5dca4533236, type: 3}
+      propertyPath: sceneName
+      value: 01_GreenElevator
+      objectReference: {fileID: 0}
+    - target: {fileID: 2194390925319946733, guid: 2d1f1700b06a26e45984e5dca4533236, type: 3}
+      propertyPath: outputLocationName
+      value: FromGreen01
+      objectReference: {fileID: 0}
     - target: {fileID: 6048185058539122539, guid: 2d1f1700b06a26e45984e5dca4533236, type: 3}
       propertyPath: m_Name
-      value: LevelLoader (2)
+      value: ToGreenElevator01
       objectReference: {fileID: 0}
     - target: {fileID: 7836145744103485809, guid: 2d1f1700b06a26e45984e5dca4533236, type: 3}
       propertyPath: m_LocalPosition.x

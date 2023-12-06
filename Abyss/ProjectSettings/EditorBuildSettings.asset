@@ -62,4 +62,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/01_Rooms/03_Yellow.unity
     guid: d352dbe3c558f6647bc2a26864d43817
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/01_GreenElevator.unity
+    guid: 33611ce7788e3b845aa023d289021c0d
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/00_GreenElevator.unity
+    guid: 3855f6194d6253c498772566ef7e492b
   m_configObjects: {}
