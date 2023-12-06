@@ -68,4 +68,28 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/01_Rooms/00_GreenElevator.unity
     guid: 3855f6194d6253c498772566ef7e492b
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/00_Red.unity
+    guid: a11bbc9eaaf37a6438fe272401c34ecf
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/00_Red_Fall.unity
+    guid: 27eec7093c587bc4fb84efd44858bdea
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/02_Red.unity
+    guid: 984bcf0b577e079468fe5a419469bb43
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/04_Yellow.unity
+    guid: b308d718c5b35874ab1b7b0e06c3a047
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/05_Yellow.unity
+    guid: 486309a21c9dfa74387383d7ae5b12bd
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/06_Yellow.unity
+    guid: 8ae92f80dd0b87c499128e0a2bfe15ff
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/07_Yellow.unity
+    guid: 0535a2c0b634d5842b1c0572ed36ddab
+  - enabled: 1
+    path: Assets/Scenes/01_Rooms/08_Yellow.unity
+    guid: 1fa4956b4a5543b4dacec5df2b433c06
   m_configObjects: {}
